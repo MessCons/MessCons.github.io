@@ -1,9 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title> Titulo je </title>
+    <title>Histograma</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 </head>
 <body>
-	<h1> prueba </h1>
+    <canvas id="myChart" width="400" height="400"></canvas>
+
+    <script>
+        // Obtén los datos del servidor
+        fetch("https://github.com/MessCons/MessCons.github.io/tree/main/Server").then(response => response.json()).then(data => {
+
+            // Crea un objeto para el gráfico
+            const chart = new Chart(document.getElementById("myChart"), {
+                type: "bar",
+                data: {
+                    labels: data.map(d => d.measurement1),
+                    datasets: [{
+                        data: data.map(d => d.measurement2),
+                        fill: true,
+                        color: "#000000"
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: "Histograma"
+                    },
+                    xaxis: {
+                        title: {
+                            display: true,
+                            text: "Medición 1"
+                        }
+                    },
+                    yaxis: {
+                        title: {
+                            display: true,
+                            text: "Medición 2"
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
