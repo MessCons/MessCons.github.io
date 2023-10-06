@@ -1,17 +1,16 @@
 {
-  "apiKey": "AIzaSyCfTFA9z7FBYcajI0UfR9yZDfudDdiwEzM",
-  "authDomain": "messureconsorcio-58ad3.firebaseapp.com",
-  "databaseURL": "https://messureconsorcio-58ad3-default-rtdb.firebaseio.com",
-  "projectId": "messureconsorcio-58ad3",
-  "storageBucket": "messureconsorcio-58ad3.appspot.com",
-  "messagingSenderId": "301374162341",
-  "appId": "1:301374162341:web:43acf42177edc482f6d44c",
   "hosting": {
-    "public": "N",
+    "public": "./",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   }
 }
