@@ -7,7 +7,7 @@
   "messagingSenderId": "301374162341",
   "appId": "1:301374162341:web:43acf42177edc482f6d44c",
   "hosting": {
-    "public": "public",
+    "public": "N",
     "ignore": [
       "firebase.json",
       "**/.*",
