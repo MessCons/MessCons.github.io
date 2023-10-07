@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MeasCons</title>
+</head>
+<body>
+  <h1>My App</h1>
+
+  <form action="/send" method="post">
+    <input type="text" name="data" placeholder="Introduce los datos">
+    <input type="submit" value="Enviar">
+  </form>
+
+  <canvas id="chart"></canvas>
+
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase.js"></script>
+  <script>
+    // Importa la API de Firebase
+    import firebase from "firebase";
+
+    // Inicializa la aplicación de Firebase
+    const app = firebase.initializeApp({
+		apiKey: "AIzaSyAsj7V0ecc2HO-p6OpOYyGCD2eHry1tg7c",
+		authDomain: "meassconsorcio.firebaseapp.com",
+		projectId: "meassconsorcio",
+		storageBucket: "meassconsorcio.appspot.com",
+		messagingSenderId: "1076354538339",
+		appId: "1:1076354538339:web:2fe4aee94695849f8a1156"
+    });
+
+    // Crea una colección en Firestore
+    const collection = firebase.firestore().collection("data");
+
+    // Obtiene los datos de la colección
+    const dataRef = collection.onSnapshot(snapshot => {
+      // Actualiza el gráfico con los datos recibidos
+      const ctx = document.getElementById("chart").getContext("2d");
+      const data = snapshot.docs.map(doc => doc.data());
+      const chart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: data.map(d => d.timestamp),
+          datasets: [{
+            data: data.map(d => d.value),
+            label: "Datos recibidos",
+            borderColor: "red",
+            backgroundColor: "rgba(255,0,0,0.2)",
+          }],
+        },
+        options: {
+          title: "Gráfico de datos",
+        },
+      });
+    });
+
+    // Evento para enviar datos al servidor
+    document.querySelector("form").addEventListener("submit", event => {
+      // Obtiene los datos del formulario
+      const data = event.target.elements.namedItem("data").value;
+
+      // Crea un documento en Firestore
+      const doc = collection.doc();
+      doc.set({
+        value: data,
+        timestamp: new Date(),
+      });
+    });
+  </script>
+</body>
+</html>
