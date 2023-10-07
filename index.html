@@ -2,15 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>MeasCons</title>
+  <title>My App</title>
 </head>
 <body>
   <h1>My App</h1>
-
-  <form action="/send" method="post">
-    <input type="text" name="data" placeholder="Introduce los datos">
-    <input type="submit" value="Enviar">
-  </form>
 
   <canvas id="chart"></canvas>
 
@@ -48,22 +43,6 @@
             backgroundColor: "rgba(255,0,0,0.2)",
           }],
         },
-        options: {
-          title: "Gráfico de datos",
-        },
-      });
-    });
-
-    // Evento para enviar datos al servidor
-    document.querySelector("form").addEventListener("submit", event => {
-      // Obtiene los datos del formulario
-      const data = event.target.elements.namedItem("data").value;
-
-      // Crea un documento en Firestore
-      const doc = collection.doc();
-      doc.set({
-        value: data,
-        timestamp: new Date(),
       });
     });
   </script>
