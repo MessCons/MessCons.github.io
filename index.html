@@ -22,7 +22,9 @@
       to avoid connecting the SDK to running emulators.
     -->
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase.js"></script>
+	
     <style media="screen">
       body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
       #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
@@ -85,5 +87,53 @@
         }
       });
     </script>
+	
+	<canvas id="chart"></canvas>
+
+
+<script>
+  // Importa la API de Firebase
+  import firebase from "firebase";
+
+  // Inicializa la aplicación de Firebase
+  const app = firebase.initializeApp({
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    databaseURL: "YOUR_DATABASE_URL",
+    apiKey: "AIzaSyAsj7V0ecc2HO-p6OpOYyGCD2eHry1tg7c",
+  authDomain: "meassconsorcio.firebaseapp.com",
+  projectId: "meassconsorcio",
+  storageBucket: "meassconsorcio.appspot.com",
+  messagingSenderId: "1076354538339",
+  appId: "1:1076354538339:web:2fe4aee94695849f8a1156"
+});
+
+  // Crea una referencia al nodo de la base de datos
+  const db = firebase.database().ref("datos");
+
+  // Obtiene los datos del nodo
+  db.on("value", snapshot => {
+    // Extrae los datos del snapshot
+    const data = snapshot.val();
+
+    // Crea un gráfico con los datos
+    const chart = new Chart(document.getElementById("chart"), {
+      type: "line",
+      data: {
+        labels: data.map(d => d.timestamp),
+        datasets: [{
+          data: data.map(d => d.valor),
+          label: "Datos recibidos",
+          borderColor: "red",
+          backgroundColor: "rgba(255,0,0,0.2)",
+        }],
+      },
+      options: {
+        title: "Gráfico de datos",
+      },
+    });
+  });
+</script>
+
   </body>
 </html>
