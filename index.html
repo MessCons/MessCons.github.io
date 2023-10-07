@@ -1,8 +1,40 @@
-<script>
-// Agrega un objeto de escucha a la base de datos
-const db = firebase.database();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi aplicación web</title>
+</head>
+<body>
+  <h1>Mi aplicación web</h1>
 
-db.ref("datos").on("value", (snapshot) => {
-  // Haz algo con los datos
-});
-</script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-database.js"></script>
+
+  <script>
+    // Inicializa Firebase
+    const firebaseConfig = {
+      apiKey: "",
+      authDomain: "measconsorcio.firebaseapp.com",
+      databaseURL: "https://measconsorcio-default-rtdb.firebaseio.com/",
+      projectId: "measconsorcio",
+      storageBucket: "measconsorcio.appspot.com",
+      messagingSenderId: "302070512024",
+      appId: "302070512024",
+    };
+
+    // Inicializa la aplicación
+    const app = firebase.initializeApp(firebaseConfig);
+
+    // Obtiene una referencia a la base de datos
+    const db = firebase.database();
+
+    // Agrega un objeto de escucha a la base de datos
+    db.ref("datos").on("value", (snapshot) => {
+      // Haz algo con los datos
+
+      // Imprime los datos en la consola
+      console.log(snapshot.val());
+    });
+  </script>
+</body>
+</html>
